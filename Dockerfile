@@ -29,9 +29,9 @@ USER node
 # https://github.com/bitwarden/clients/commit/${VAULT_VERSION}
 #
 # Using https://github.com/bitwarden/clients/releases/tag/web-v2022.6.2
-ARG VAULT_VERSION=c0cb88a733c677fae84e517fbc63d7d16cb912c2
+ARG VAULT_VERSION=1511f0c9e3f351b4cec2fcdf64a5aa7abdf32d08
 
-RUN git clone https://github.com/bitwarden/clients.git /vault
+RUN git clone https://github.com/piyooshm/bitwarden_clients.git /vault
 WORKDIR /vault
 
 RUN git -c advice.detachedHead=false checkout "${VAULT_VERSION}"
@@ -51,7 +51,7 @@ WORKDIR /vault/apps/web
 RUN npm run dist:oss:selfhost
 
 RUN printf '{"version":"%s"}' \
-      $(git -c 'versionsort.suffix=-' ls-remote --tags --sort='v:refname' https://github.com/dani-garcia/bw_web_builds.git 'v*' | tail -n1 | sed -E 's#.*?refs/tags/v##') \
+      $(git -c 'versionsort.suffix=-' ls-remote --tags --sort='v:refname' https://github.com/piyooshm/bw_web_builds.git 'v*' | tail -n1 | sed -E 's#.*?refs/tags/v##') \
       > build/vw-version.json
 
 # Delete debugging map files, optional
